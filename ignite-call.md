@@ -8,3 +8,19 @@ em tsconfig.json: {
 
 <!-- Tag image i = quality e priority -->
 <Image src={previewImage} height={400} quality={100} priority alt="" />
+
+<!-- validação com Zod -->
+z.object({
+  z.string().regex(/^([a-z\-]+)$/i)
+})
+--- Significa: "valide uma string que siga esse padrão de regex"
+| Parte         | Significado                                                                 |
+|---------------|-----------------------------------------------------------------------------|
+| `/.../`       | Delimita a expressão regular                                                |
+| `^`           | Começo da string                                                            |
+| `([a-z\-]+)`  | Um ou mais caracteres de a a z ou hífen (`-`)                               |
+| `[a-z\-]`     | Um único caractere de a-z ou hífen                                          |
+| `+`           | Um ou mais do anterior                                                      |
+| `()`          | Agrupamento (não obrigatório nesse caso, mas comum)                         |
+| `$`           | Fim da string                                                               |
+| `i`           | *Flag* "ignore case" → aceita maiúsculas ou minúsculas                     |
