@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  // id determina que vai ser a PK @default(uuid()) vai gerar uma string aleatória como o id
+  id String @id @default(uuid())
+  // Restrição de valor unico (regra de unicidade)
+  username String @unique
+  name String
+
+  created_at DateTime @default(now())
+
+  //posso definir manualmente qual será o nome da mh tabela, ao invés de puxar o User
+  @@map("users")
+}
+

@@ -51,3 +51,27 @@ Porém, o tipo de servidor interfere — se ele funciona 24h, como um servidor N
 Em ambientes serverless, algumas funções que precisam de um processamento de dados a todo momento não funcionarão, assim como os WebSockets (dependem das mensagens e respostas do servidor a todo momento) ou long-running (filas), que se tornam inviáveis.
 
 Stateless é um ambiente sem estado: a cada requisição do usuário, a aplicação roda em um ambiente isolado dos outros ambientes. Cada pessoa acessa um contêiner da nossa aplicação — não é compartilhado.
+
+<!-- Prisma - introdução -->
+ORM para o Node.js, facilitando o acesso ao banco de dados. 
+Altamente integrado ao TypeScript, detectando automaticamente as colunas e tabelas do banco de dados, gerando autocompletes para as querys, sabendo os dados que podem ser inseridos, buscados, uso de where, join...
+
+--- npm i prisma -D: faz a instalação da CLI do Prisma, a interface de linha de comando.
+--- npm i @prisma/client: é a dependência instada para acessar o banco de dados, para lidar com o BD, onde executaremos as leituras, escritas, atualizações, remoções...
+--- npx prisma init --datasource-provider SQLite: Podemos inserir o tipo de banco de dados, que pode ser trocado posteriormente, pois no Prisma, precisamos apenas trocar a URL de conexão para mudar o tipo do banco de dados e gerar as migrations, alterações em código não precisam ser feitas. - criará "prisma/schema.prisma" e ".env" 
+
+<!-- Prisma - schema.prisma -->
+Possuí uma sintaxe própria do Prisma, para definir as tabelas, relacionamentos e campos do nosso banco de dados.
+Depois, converterá em linguagem específica (SQL) para criar a estrutura no banco de dados em si.
+
+<!-- Prisma - migration -->
+---npx prisma migrate dev: Faz a leitura do 'schema.prisma' e verifica quais as ultimas alterações desde a última visita, semelhante ao commit para o Git. Com isso:
+
+" The following migration(s) have been created and applied from new schema changes:
+      migrations/
+        └─ 20250603155539_create_users/
+          └─ migration.sql
+
+Your database is now in sync with your schema.  "
+
+---npx prisma studio - visualização
