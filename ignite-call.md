@@ -38,3 +38,16 @@ z.object({
 
 <!-- query.router -->
 após a '?', onde temos a query string, o Next.js extraí os parâmetros da URL, como 'www.ignite-call.com/register?username=João'. O valor é acessível em router.query.username
+
+<!-- API ROUTES - overview -->
+Formas de ter rotas back-end na aplicação dentro do front-end no nosso App. Utilizadas exclusivamente nas operações back-end auxiliares na construção do front-end.
+Algo exclusivo da Web, por exemplo, pode ser adicionado nas API Routes, ao invés do back-end geral que serve para outras plataformas, de modo imaginário.
+Produtivo e útil, porém, não escalável ao mesmo nível de front e back separados.
+
+Usa o Node para o back-end, ou seja, o que podemos usar com o Node, podemos também usar nas API Routes.
+
+Porém, o tipo de servidor interfere — se ele funciona 24h, como um servidor Node tradicional, ou se apenas roda nas requisições dos usuários (serverless).
+
+Em ambientes serverless, algumas funções que precisam de um processamento de dados a todo momento não funcionarão, assim como os WebSockets (dependem das mensagens e respostas do servidor a todo momento) ou long-running (filas), que se tornam inviáveis.
+
+Stateless é um ambiente sem estado: a cada requisição do usuário, a aplicação roda em um ambiente isolado dos outros ambientes. Cada pessoa acessa um contêiner da nossa aplicação — não é compartilhado.
