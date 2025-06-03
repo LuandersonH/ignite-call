@@ -24,3 +24,17 @@ z.object({
 | `()`          | Agrupamento (não obrigatório nesse caso, mas comum)                         |
 | `$`           | Fim da string                                                               |
 | `i`           | *Flag* "ignore case" → aceita maiúsculas ou minúsculas                     |
+
+
+
+<!-- HookForm -->
+ const {
+    register,
+    setValue,
+  } = useForm({
+    resolver: zodResolver(),
+  })
+----setValue serve para setar um valor de forma manual no form
+
+<!-- query.router -->
+após a '?', onde temos a query string, o Next.js extraí os parâmetros da URL, como 'www.ignite-call.com/register?username=João'. O valor é acessível em router.query.username
