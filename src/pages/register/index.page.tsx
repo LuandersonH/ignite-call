@@ -91,7 +91,7 @@ export default function Register() {
           )}
         </label>
         <label>
-          <Text size="sm">Nome de usuário</Text>
+          <Text size="sm">Nome completo</Text>
           <TextInput
             placeholder="seu-nome"
             onPointerEnterCapture={undefined}
