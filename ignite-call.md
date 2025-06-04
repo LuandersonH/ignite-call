@@ -75,3 +75,8 @@ Depois, converterá em linguagem específica (SQL) para criar a estrutura no ban
 Your database is now in sync with your schema.  "
 
 ---npx prisma studio - visualização
+
+<!-- nookies - biblioteca para cookies no next -->
+1. npm i nookies
+2. npm i @types/cookie -D
+---
