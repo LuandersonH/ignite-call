@@ -92,3 +92,7 @@ O fluxo funciona assim:
   3. O Google redireciona de volta para a aplicação com um token de acesso, permitindo que a aplicação se comunique com a API do Google em nome do usuário.
 
 A biblioteca utilizada foi o NextAuth.js, que é ideal para aplicações Next.js com front-end e back-end integrados.
+
+<!-- Criando oAuth com Google -->
+Configuração necessária pelo lado da Google, criada a aplicação na Google Cloud 
+.ENV configurado com GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET
