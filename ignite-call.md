@@ -80,3 +80,15 @@ Your database is now in sync with your schema.  "
 1. npm i nookies
 2. npm i @types/cookie -D
 ---
+
+<!-- Autenticação -->
+Neste projeto foi utilizado o protocolo de autenticação OAuth.
+
+Com ele, o usuário autoriza o acesso a determinados dados da sua conta em um provedor (como o Google), sem precisar compartilhar sua senha.
+
+O fluxo funciona assim:
+  1. O usuário é redirecionado para a página de login do Google.
+  2. Ele concede as permissões solicitadas.
+  3. O Google redireciona de volta para a aplicação com um token de acesso, permitindo que a aplicação se comunique com a API do Google em nome do usuário.
+
+A biblioteca utilizada foi o NextAuth.js, que é ideal para aplicações Next.js com front-end e back-end integrados.
