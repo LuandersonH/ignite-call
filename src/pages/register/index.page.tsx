@@ -50,6 +50,8 @@ export default function Register() {
         name: data.name,
         username: data.username,
       })
+
+      await router.push('/register/connect-calendar')
     } catch (err) {
       // se for um erro do Axios, retorna a mensagem do erro
       // Ex: 400 Bad Request com mensagem personalizada da API
