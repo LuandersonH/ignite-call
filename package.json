@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/core": "^0.34.2",
     "@hookform/resolvers": "^5.0.1",
     "@ignite-ui/react": "^2.2.4",
     "@prisma/client": "^6.8.2",
