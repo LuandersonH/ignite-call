@@ -96,3 +96,15 @@ A biblioteca utilizada foi o NextAuth.js, que é ideal para aplicações Next.js
 <!-- Criando oAuth com Google -->
 Configuração necessária pelo lado da Google, criada a aplicação na Google Cloud 
 .ENV configurado com GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET
+
+
+[...nextauth].api
+colchetes normais '[]': rota parametrizada no Next
+---Www.site.com/api/auth/parametoFicaAqui
+
+colchetes com desestruturação '[...]': rota parametrizada com múltiplos parâmetros no Next
+---Www.site.com/api/auth/parametoFicaAqui/outroParametroAqui/outroParametroAqui/outroParametroAqui/QuantosParametrosQuiser
+
+Como o next auth lida com geração de token, com JWT, todos os tokens para nosso app, e para comunicar front e back de uma maneira segura, precisamos ter um secret para assinar o token no server side, tornando o token impossível de ser manipulado, e, se algo for mudado, invalida o token. 
+
+O token pode ser gerado aleatoriamente rodando o comando: "openssl rand -base64 32" e adicionado ao .env com NEXTAUTH_SECRET="tokenGerado"
