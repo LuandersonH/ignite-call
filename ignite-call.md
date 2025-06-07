@@ -64,6 +64,14 @@ Altamente integrado ao TypeScript, detectando automaticamente as colunas e tabel
 Possuí uma sintaxe própria do Prisma, para definir as tabelas, relacionamentos e campos do nosso banco de dados.
 Depois, converterá em linguagem específica (SQL) para criar a estrutura no banco de dados em si.
 
+---@id: determina que vai ser a PK; 
+
+---@default(uuid()): vai gerar uma string aleatória como o id
+
+---@Unique: Restrição de valor unico (regra de unicidade)
+
+---@@map('users'): posso definir manualmente qual será o nome da mh tabela
+
 <!-- Prisma - migration -->
 ---npx prisma migrate dev: Faz a leitura do 'schema.prisma' e verifica quais as ultimas alterações desde a última visita, semelhante ao commit para o Git. Com isso:
 
@@ -98,6 +106,7 @@ Configuração necessária pelo lado da Google, criada a aplicação na Google C
 .ENV configurado com GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET
 
 
+<!-- nextAuth api -->
 [...nextauth].api
 colchetes normais '[]': rota parametrizada no Next
 ---Www.site.com/api/auth/parametoFicaAqui
@@ -108,3 +117,9 @@ colchetes com desestruturação '[...]': rota parametrizada com múltiplos parâ
 Como o next auth lida com geração de token, com JWT, todos os tokens para nosso app, e para comunicar front e back de uma maneira segura, precisamos ter um secret para assinar o token no server side, tornando o token impossível de ser manipulado, e, se algo for mudado, invalida o token. 
 
 O token pode ser gerado aleatoriamente rodando o comando: "openssl rand -base64 32" e adicionado ao .env com NEXTAUTH_SECRET="tokenGerado"
+
+<!-- NextAuth - autenticações -->
+
+Stateless: sem BD, valida que o user se autenticou na API do Google, gera o token JWT no backend que garante que ele está autenticado. 
+
+Adapters: salvar as infos do user no BD, ideal para obter detalhes do usuário que está se autenticando, com relacionamentos futuros das informações do próprio e outros dados podendo ser adicionados sem depender fora da API do Google.

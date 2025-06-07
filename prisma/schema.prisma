@@ -10,16 +10,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//1 User autenticado com um provider ou não gera um User, na primeira parte da aplicação.
 model User {
-  // id determina que vai ser a PK @default(uuid()) vai gerar uma string aleatória como o id
   id String @id @default(uuid())
-  // Restrição de valor unico (regra de unicidade)
+  
   username String @unique
   name String
-
+  email         String?   @unique
+  avatar_url         String?
   created_at DateTime @default(now())
+  
+  accounts      Account[]
+  sessions      Session[]
 
-  //posso definir manualmente qual será o nome da mh tabela, ao invés de puxar o User
+  
   @@map("users")
 }
 
+//Integração de um usuário com algum provider
+//O mesmo usuário pode ter +1 account, cada registro para cada provedor diferente, ex: 1 User com Account do Google e Account do GitHub
+model Account {
+  id                 String  @id @default(cuid())
+  user_id             String  
+  type               String
+  provider           String
+  provider_account_id  String  
+  refresh_token      String? 
+  access_token       String? 
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? 
+  session_state      String?
+ 
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+ 
+  @@unique([provider, provider_account_id])
+  @@map("accounts")
+}
+ 
+model Session {
+  id           String   @id @default(cuid())
+  session_token String   @unique
+  user_id       String   
+  expires      DateTime
+
+  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+ 
+  @@map("sessions")
+}
+ 
