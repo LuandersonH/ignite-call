@@ -8,6 +8,7 @@ import {
 } from '@ignite-ui/react'
 import { Container, Header } from '../styles'
 import {
+  FormError,
   IntervalBox,
   IntervalDay,
   IntervalInputs,
@@ -18,8 +19,27 @@ import { ArrowRight } from 'phosphor-react'
 import { useFieldArray, useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 import { getWeekDays } from '@/utils/get-week-days'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-const timeIntervalsFormSchema = z.object({})
+const timeIntervalsFormSchema = z.object({
+  intervals: z
+    .array(
+      z.object({
+        weekDay: z.number().min(0).max(6),
+        enabled: z.boolean(),
+        startTime: z.string(),
+        endTime: z.string(),
+      }),
+    )
+    .length(7)
+    .transform((intervals) => intervals.filter((interval) => interval.enabled))
+    .refine((intervals) => intervals.length > 0, {
+      message: 'Você precisa selecionar pelo menos um dia da semana.',
+      path: [0],
+    }),
+})
+
+type timeIntervalsFormData = z.infer<typeof timeIntervalsFormSchema>
 
 export default function TimeIntevals() {
   const {
@@ -27,8 +47,9 @@ export default function TimeIntevals() {
     handleSubmit,
     watch,
     control,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm({
+    resolver: zodResolver(timeIntervalsFormSchema),
     defaultValues: {
       intervals: [
         { weekDay: 0, enabled: false, startTime: '08:00', endTime: '18:00' },
@@ -51,7 +72,9 @@ export default function TimeIntevals() {
 
   const intervals = watch('intervals')
 
-  async function handleSetTimeIntervals() {}
+  async function handleSetTimeIntervals(data: timeIntervalsFormData) {
+    console.log(data)
+  }
 
   return (
     <Container>
@@ -64,7 +87,7 @@ export default function TimeIntevals() {
         <MultiStep size={4} currentStep={3} />
       </Header>
 
-      <IntervalBox as="form">
+      <IntervalBox as="form" onSubmit={handleSubmit(handleSetTimeIntervals)}>
         <IntervalsContainer>
           {fields.map((field, index) => {
             return (
@@ -109,7 +132,12 @@ export default function TimeIntevals() {
             )
           })}
         </IntervalsContainer>
-        <Button type="submit">
+
+        {errors.intervals && (
+          <FormError size="sm">{errors.intervals[0]?.message}</FormError>
+        )}
+
+        <Button type="submit" disabled={isSubmitting}>
           Próximo Passo
           <ArrowRight />
         </Button>
