@@ -82,9 +82,6 @@ export default function Register() {
           <TextInput
             prefix="ignite.com/"
             placeholder="seu-usuario"
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-            crossOrigin={undefined}
             {...register('username')}
           />
 
@@ -94,14 +91,7 @@ export default function Register() {
         </label>
         <label>
           <Text size="sm">Nome completo</Text>
-          <TextInput
-            placeholder="seu-nome"
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-            crossOrigin={undefined}
-            {...register('name')}
-          />
-
+          <TextInput placeholder="seu-nome" {...register('name')} />
           {errors.name && (
             <FormError size="sm"> {errors.name.message}</FormError>
           )}
