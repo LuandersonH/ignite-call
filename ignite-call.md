@@ -123,3 +123,9 @@ O token pode ser gerado aleatoriamente rodando o comando: "openssl rand -base64 
 Stateless: sem BD, valida que o user se autenticou na API do Google, gera o token JWT no backend que garante que ele está autenticado. 
 
 Adapters: salvar as infos do user no BD, ideal para obter detalhes do usuário que está se autenticando, com relacionamentos futuros das informações do próprio e outros dados podendo ser adicionados sem depender fora da API do Google.
+
+<!-- dayjs -->
+Lidar com datas no JS
+
+<!-- css -->
+1 maiuscula -- textTransform: 'capitalize',

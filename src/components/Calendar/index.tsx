@@ -8,21 +8,42 @@ import {
   CalendarTitle,
 } from './styles'
 import { getWeekDays } from '@/utils/get-week-days'
+import { useState } from 'react'
+import dayjs from 'dayjs'
 
 export function Calendar() {
+  const [currentDate, setCurrentDate] = useState(() => {
+    return dayjs().set('date', 1)
+  })
+
+  function handlePreviousMonth() {
+    const previousMonthDate = currentDate.subtract(1, 'month')
+
+    setCurrentDate(previousMonthDate)
+  }
+
+  function handleNextMonth() {
+    const previousNextDate = currentDate.add(1, 'month')
+
+    setCurrentDate(previousNextDate)
+  }
+
+  const currentMonth = currentDate.format('MMMM')
+  const currentYear = currentDate.format('YYYY')
+
   const weekdays = getWeekDays({ short: true })
 
   return (
     <CalendarContainer>
       <CalendarHeader>
         <CalendarTitle>
-          Dezembro <span>2025</span>
+          {currentMonth} <span>{currentYear}</span>
         </CalendarTitle>
         <CalendarActions>
-          <button>
+          <button onClick={handlePreviousMonth} title="Previous month">
             <CaretLeft />
           </button>
-          <button>
+          <button onClick={handleNextMonth} title="Next month">
             <CaretRight />
           </button>
         </CalendarActions>
@@ -49,6 +70,29 @@ export function Calendar() {
             </td>
             <td>
               <CalendarDay>3</CalendarDay>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <CalendarDay>4</CalendarDay>
+            </td>
+            <td>
+              <CalendarDay>5</CalendarDay>
+            </td>
+            <td>
+              <CalendarDay>6</CalendarDay>
+            </td>
+            <td>
+              <CalendarDay>7</CalendarDay>
+            </td>
+            <td>
+              <CalendarDay>8</CalendarDay>
+            </td>
+            <td>
+              <CalendarDay>9</CalendarDay>
+            </td>
+            <td>
+              <CalendarDay>10</CalendarDay>
             </td>
           </tr>
         </tbody>
