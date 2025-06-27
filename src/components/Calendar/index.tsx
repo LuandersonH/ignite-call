@@ -8,13 +8,16 @@ import {
   CalendarTitle,
 } from './styles'
 import { getWeekDays } from '@/utils/get-week-days'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
+import { log } from 'console'
 
 export function Calendar() {
   const [currentDate, setCurrentDate] = useState(() => {
-    return dayjs().set('date', 1)
+    return dayjs().tz('America/Sao_Paulo').startOf('month')
   })
+
+  console.log(`initial currentDate: ${currentDate}`)
 
   function handlePreviousMonth() {
     const previousMonthDate = currentDate.subtract(1, 'month')
@@ -28,10 +31,52 @@ export function Calendar() {
     setCurrentDate(previousNextDate)
   }
 
-  const currentMonth = currentDate.format('MMMM')
-  const currentYear = currentDate.format('YYYY')
+  const calendarWeeks = useMemo(() => {
+    console.log('1. Iniciando cálculo de calendarWeeks...')
+    console.log('2. currentDate:', currentDate)
+
+    const daysInMonthArray = Array.from({
+      length: currentDate.daysInMonth(),
+    }).map((_, i) => {
+      const day = currentDate.set('date', i + 1)
+      console.log('3. Dia do mês atual:', day)
+      return day
+    })
+
+    const firstWeekDay = currentDate.get('day')
+    console.log('4. Dia da semana do primeiro dia do mês:', firstWeekDay)
+
+    const previousMonthFillArray = Array.from({
+      length: firstWeekDay,
+    })
+      .map((_, i) => {
+        const prevDay = currentDate.subtract(i + 1, 'day')
+        console.log('5. Dia do mês anterior:', prevDay)
+        return prevDay
+      })
+      .reverse()
+
+    console.log(
+      '6. Dias do mês anterior (array):',
+      previousMonthFillArray.map((d) => d.toDate()),
+    )
+    console.log(
+      '7. Dias do mês atual (array):',
+      daysInMonthArray.map((d) => d),
+    )
+
+    const fullArray = [...previousMonthFillArray, ...daysInMonthArray]
+    console.log('8. Total de dias no calendário:', fullArray.length)
+
+    return fullArray
+  }, [currentDate])
+
+  console.log(`9. CalendarWeekDays: ${calendarWeeks}`)
 
   const weekdays = getWeekDays({ short: true })
+
+  const currentMonth = currentDate.format('MMMM')
+  const currentYear = currentDate.format('YYYY')
 
   return (
     <CalendarContainer>
